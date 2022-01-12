@@ -5,14 +5,13 @@
  */
 
 import { injectable } from 'inversify';
-import ViewSystemRepository from '../../domains/system/repositories/view-system-repository';
 
 /* local imports */
-import { SystemDoc } from '../../domains/system';
-
+import { SystemDto } from '../../domains/system/dtos';
+import ViewSystemRepository from '../../domains/system/repositories/view-system-repository';
 @injectable()
 class ViewSystemInterRepo implements ViewSystemRepository {
-  viewInfo(): SystemDoc {
+  viewInfo(): SystemDto {
     return {
       node: process.version,
       platform: process.platform,

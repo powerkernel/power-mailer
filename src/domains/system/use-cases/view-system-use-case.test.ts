@@ -13,7 +13,7 @@ it('executes normally', async () => {
     IDENTIFIERS.ViewSystemUseCase
   );
 
-  const result = await useCase.execute();
+  const result = await useCase.handle();
 
   expect(result).toHaveProperty('node');
   expect(result).toHaveProperty('platform');

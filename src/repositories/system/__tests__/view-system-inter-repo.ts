@@ -5,7 +5,7 @@
  */
 
 /* types */
-import type { ViewSystemRepository } from '../../../domains/system';
+import type { ViewSystemRepository } from '../../../domains/system/repositories';
 
 /* local imports */
 import container from '../../../config/container';

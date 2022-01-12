@@ -9,7 +9,7 @@ import { inject, injectable } from 'inversify';
 
 /* local imports */
 import IDENTIFIERS from '../../../config/identifiers';
-import ViewSystemUseCase from './../use-cases/view-system-use-case';
+import { ViewSystemUseCase } from './../use-cases';
 
 @injectable()
 class ViewSystemController {
@@ -21,8 +21,8 @@ class ViewSystemController {
     this.useCase = useCase;
   }
 
-  public viewSystem() {
-    return this.useCase.execute();
+  public execute() {
+    return this.useCase.handle();
   }
 }
 

@@ -7,10 +7,15 @@
 const IDENTIFIERS = {
   /* Repositories */
   ViewSystemRepository: Symbol.for('ViewSystemRepository'),
+  NewMessageRepository: Symbol.for('NewMessageRepository'),
+
   /* Use Cases */
   ViewSystemUseCase: Symbol.for('ViewSystemUseCase'),
+  NewMessageUseCase: Symbol.for('NewMessageUseCase'),
+
   /* Controller */
   ViewSystemController: Symbol.for('ViewSystemController'),
+  NewMessageController: Symbol.for('NewMessageController'),
 };
 
 export default IDENTIFIERS;

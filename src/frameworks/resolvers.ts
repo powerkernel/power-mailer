@@ -4,10 +4,30 @@
  * @copyright Copyright (c) 2021 Power Kernel
  */
 
-import { ViewSystemController } from './../domains/system';
+import container from '../config/container';
+import IDENTIFIERS from '../config/identifiers';
+import { NewMessageController } from '../domains/message/controllers';
+import type { ViewSystemController } from '../domains/system/controllers';
+const ViewSystemCtl = container.get<ViewSystemController>(
+  IDENTIFIERS.ViewSystemController
+);
 const resolvers = {
   Query: {
-    viewSystem: () => ViewSystemController.viewSystem(),
+    viewSystem: () => ViewSystemCtl.execute(),
+  },
+  Mutation: {
+    newMessage: async (
+      _parent: unknown,
+      args: {
+        from: string;
+        to: string;
+        subject: string;
+        html: string;
+        text: string;
+      }
+    ) => {
+      return await NewMessageController.execute(args);
+    },
   },
 };
 

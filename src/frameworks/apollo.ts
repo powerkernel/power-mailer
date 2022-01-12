@@ -4,7 +4,7 @@
  * @copyright Copyright (c) 2021 Power Kernel
  */
 
-import { ApolloServer, gql } from 'apollo-server-express';
+import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 import config from 'config';
 import http from 'http';

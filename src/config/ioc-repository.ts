@@ -5,7 +5,9 @@
  */
 
 import type { Container } from 'inversify';
+import NewMessageRepository from '../domains/message/repositories/new-message-repository';
 import ViewSystemRepository from '../domains/system/repositories/view-system-repository';
+import { NewMessageMongoRepo } from '../repositories/message';
 import ViewSystemInterRepo from '../repositories/system/view-system-inter-repo';
 
 /* local imports */
@@ -16,6 +18,10 @@ const bindRepositories = (container: Container) => {
   container
     .bind<ViewSystemRepository>(IDENTIFIERS.ViewSystemRepository)
     .to(ViewSystemInterRepo);
+
+  container
+    .bind<NewMessageRepository>(IDENTIFIERS.NewMessageRepository)
+    .to(NewMessageMongoRepo);
 };
 
 /* exports */

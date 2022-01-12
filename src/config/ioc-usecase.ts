@@ -5,6 +5,7 @@
  */
 
 import type { Container } from 'inversify';
+import NewMessageUseCase from '../domains/message/use-cases/new-message-use-case';
 import ViewSystemUseCase from '../domains/system/use-cases/view-system-use-case';
 
 /* local imports */
@@ -15,6 +16,9 @@ const bindUseCases = (container: Container) => {
   container
     .bind<ViewSystemUseCase>(IDENTIFIERS.ViewSystemUseCase)
     .to(ViewSystemUseCase);
+  container
+    .bind<NewMessageUseCase>(IDENTIFIERS.NewMessageUseCase)
+    .to(NewMessageUseCase);
 };
 
 /* export */

@@ -4,12 +4,10 @@
  * @copyright Copyright (c) 2021 Power Kernel
  */
 
-type SystemDoc = {
-  node: string;
-  platform: string;
-};
+import { Entity, Jsonifier } from '@powerkernel/power-common';
+import { SystemDto } from '../dtos';
 
-class System {
+class System extends Entity implements Jsonifier<SystemDto> {
   private _node!: string;
   private _platform!: string;
 
@@ -21,16 +19,17 @@ class System {
     return this._platform;
   }
 
-  private constructor(doc: SystemDoc) {
+  private constructor(doc: SystemDto) {
+    super();
     this._platform = doc.platform;
     this._node = doc.node;
   }
 
-  public static create(doc: SystemDoc) {
+  public static create(doc: SystemDto) {
     return new System(doc);
   }
 
-  public toJson(): SystemDoc {
+  public jsonify(): SystemDto {
     return {
       platform: this.platform,
       node: this.node,
@@ -38,4 +37,4 @@ class System {
   }
 }
 
-export { System, SystemDoc };
+export default System;

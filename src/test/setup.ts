@@ -6,6 +6,8 @@
 import 'reflect-metadata';
 import container from '../config/container';
 
+jest.mock('./../repositories/message/new-message-mongo-repo.ts');
+
 beforeEach(async () => {
   // create a snapshot so each unit test can modify
   // it without breaking other unit tests

@@ -11,7 +11,29 @@ export default gql`
     platform: String
     node: String
   }
+
+  type MessageDto {
+    id: ID!
+    from: String
+    to: String
+    subject: String
+    html: String
+    text: String
+    createdAt: String
+    updatedAt: String
+  }
+
   type Query {
     viewSystem: SystemDoc
+  }
+
+  type Mutation {
+    newMessage(
+      from: String!
+      to: String!
+      subject: String!
+      html: String
+      text: String
+    ): MessageDto
   }
 `;

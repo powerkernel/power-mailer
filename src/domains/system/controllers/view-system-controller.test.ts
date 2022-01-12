@@ -13,7 +13,7 @@ it('executes normally', async () => {
     IDENTIFIERS.ViewSystemController
   );
 
-  const response = await controller.viewSystem();
+  const response = await controller.execute();
   expect(response).toHaveProperty('node');
   expect(response).toHaveProperty('platform');
 });

@@ -4,7 +4,7 @@
  * @copyright Copyright (c) 2021 Power Kernel
  */
 
-import { System } from './system';
+import { System } from '.';
 
 it('returns a json object', () => {
   const doc = {
@@ -13,5 +13,5 @@ it('returns a json object', () => {
   };
   const system = System.create(doc);
 
-  expect(system.toJson()).toEqual(doc);
+  expect(system.jsonify()).toEqual(doc);
 });

@@ -12,7 +12,7 @@ import type ViewSystemRepository from '../repositories/view-system-repository';
 
 /* local imports */
 import IDENTIFIERS from '../../../config/identifiers';
-import { System } from '../system';
+import { System } from '../entities';
 
 @injectable()
 class ViewSystemUseCase {
@@ -24,12 +24,12 @@ class ViewSystemUseCase {
     this.repository = repository;
   }
 
-  public async execute() {
+  public async handle() {
     const systemDoc = this.repository.viewInfo();
 
     const systemEntity = System.create(systemDoc);
 
-    return systemEntity.toJson();
+    return systemEntity.jsonify();
   }
 }
 

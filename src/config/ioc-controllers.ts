@@ -5,6 +5,7 @@
  */
 
 import type { Container } from 'inversify';
+import NewMessageController from '../domains/message/controllers/new-message-controller';
 import ViewSystemController from '../domains/system/controllers/view-system-controller';
 
 /* local imports */
@@ -15,6 +16,10 @@ const bindControllers = (container: Container) => {
   container
     .bind<ViewSystemController>(IDENTIFIERS.ViewSystemController)
     .to(ViewSystemController);
+
+  container
+    .bind<NewMessageController>(IDENTIFIERS.NewMessageController)
+    .to(NewMessageController);
 };
 
 /* export */
