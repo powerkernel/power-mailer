@@ -1,4 +1,28 @@
 {
   "env": "dev",
-  "port": 3000
+  "port": 3001,
+  "mongoDb": {
+    "dbUri": "mongodb+srv://otp-user:SOME_PASSWORD@some.hostname.com?retryWrites=true&w=majority",
+    "dbName": "otp-db"
+  },
+  "smtp": {
+    "primary": {
+      "host": "primary.smtp.com",
+      "port": 465,
+      "secure": true,
+      "auth": {
+        "user": "auth@primary.smtp.com",
+        "pass": "SOME_PASSWORD"
+      }
+    },
+    "secondary": {
+      "host": "secondary.smtp.com",
+      "port": 465,
+      "secure": true,
+      "auth": {
+        "user": "auth@secondary.smtp.com",
+        "pass": "SOME_PASSWORD"
+      }
+    }
+  }
 }
