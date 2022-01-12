@@ -6,13 +6,14 @@
 
 /* import npm packages */
 import { Helper } from '@powerkernel/power-common';
+import { inject, injectable } from 'inversify';
 
 /* types */
 import type { NewMessageRepository } from '../repositories';
 
 /* local imports */
 import { Message } from '../entities';
-import { inject, injectable } from 'inversify';
+
 import IDENTIFIERS from '../../../config/identifiers';
 import { NewMessageDto } from '../dtos';
 
