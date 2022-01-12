@@ -8,41 +8,24 @@ import 'reflect-metadata';
 
 /* local imports */
 import { startApolloServer } from './frameworks/apollo';
-import { MongoDbClient } from './clients';
-
-// const subscribe = async (nc: NatsConnection) => {
-//   // add jet stream
-//   const jsm = await nc.jetstreamManager();
-//   const stream = 'otp';
-//   const subj = 'otp.*';
-//   await jsm.streams.add({ name: stream, subjects: [subj] });
-
-//   // jet stream sub
-//   const js = nc.jetstream();
-//   const opts = consumerOpts();
-//   opts.durable('harry');
-//   opts.manualAck();
-//   opts.ackExplicit();
-//   opts.deliverTo(createInbox());
-//   opts.callback((_, msg) => {
-//     if (msg !== null) {
-//       console.log(msg.seq);
-
-//       msg.ack();
-//     }
-//   });
-//   await js.subscribe(subj, opts);
-// };
+import { MongoDbClient, NatsClient } from './clients';
+import listen from './frameworks/listerners';
 
 (async () => {
   try {
     await MongoDbClient.connect();
+    await NatsClient.connect();
     await startApolloServer();
 
+    // event listeners
+    listen();
+
     // exiting
-    const handleExit = async (signal: string) => {
+    const handleExit = (signal: string) => {
       console.log(`Received ${signal}`);
-      process.exit();
+      Promise.all([NatsClient.close(), MongoDbClient.close()]).then(() => {
+        process.exit();
+      });
     };
     process.on('SIGINT', handleExit);
     process.on('SIGTERM', handleExit);
