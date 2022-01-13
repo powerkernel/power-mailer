@@ -54,10 +54,10 @@
     "config": "^3.3.7",
     "express": "^4.17.2",
     "inversify": "^6.0.1",
+    "mongodb": "^4.3.0",
     "nast": "^1.0.19",
     "nats": "^2.4.0",
     "nodemailer": "^6.7.2",
-    "reflect-metadata": "^0.1.13",
-    "uuid-mongodb": "^2.5.0"
+    "reflect-metadata": "^0.1.13"
   }
 }

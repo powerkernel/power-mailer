@@ -6,7 +6,6 @@
 
 /* import npm packages */
 import { injectable } from 'inversify';
-import MUUID from 'uuid-mongodb';
 
 /* local imports */
 import { MongoDbClient } from '../../clients';
@@ -18,7 +17,7 @@ class NewMessageMongoRepo implements NewMessageRepository {
   async saveMessage(doc: MessageDto): Promise<MessageDto> {
     const db = MongoDbClient.db;
     const data = {
-      _id: MUUID.from(doc.id),
+      _id: doc.id,
       from: doc.from,
       to: doc.to,
       subject: doc.subject,
