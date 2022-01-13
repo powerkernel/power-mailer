@@ -15,7 +15,8 @@ import type { NewMessageRepository } from '../repositories';
 import { Message } from '../entities';
 
 import IDENTIFIERS from '../../../config/identifiers';
-import { NewMessageDto } from '../dtos';
+import { MessageDto, NewMessageDto } from '../dtos';
+import EmailCreatedObserver from '../observers/email-created-observer';
 
 @injectable()
 class NewMessageUseCase {
@@ -27,7 +28,7 @@ class NewMessageUseCase {
     this.repository = repository;
   }
 
-  public async handle(dto: NewMessageDto) {
+  public async handle(dto: NewMessageDto): Promise<MessageDto> {
     const date = new Date();
 
     const doc = {
@@ -43,7 +44,13 @@ class NewMessageUseCase {
 
     const messageEntity = Message.create(doc);
 
-    return await this.repository.saveMessage(messageEntity.jsonify());
+    await this.repository.saveMessage(messageEntity.jsonify());
+
+    // observer
+    messageEntity.attach(new EmailCreatedObserver());
+    messageEntity.notify();
+
+    return doc;
   }
 }
 export default NewMessageUseCase;

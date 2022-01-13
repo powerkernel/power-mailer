@@ -13,7 +13,6 @@ import type ViewSystemRepository from '../repositories/view-system-repository';
 /* local imports */
 import IDENTIFIERS from '../../../config/identifiers';
 import { System } from '../entities';
-
 @injectable()
 class ViewSystemUseCase {
   repository: ViewSystemRepository;

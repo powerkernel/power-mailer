@@ -4,10 +4,14 @@
  * @copyright Copyright (c) 2022 Power Kernel
  */
 
-import { Validator, Entity, Jsonifier } from '@powerkernel/power-common';
+import {
+  Validator,
+  Jsonifier,
+  ObservableEntity,
+} from '@powerkernel/power-common';
 import { MessageDto } from '../dtos';
 
-class Message extends Entity implements Jsonifier<MessageDto> {
+class Message extends ObservableEntity implements Jsonifier<MessageDto> {
   private wrappedFrom!: string;
   private wrappedTo!: string;
   private wrappedSubject!: string;
