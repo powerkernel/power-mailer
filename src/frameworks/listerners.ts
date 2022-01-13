@@ -31,8 +31,11 @@ const subscription = {
         const eventDetail = JSON.parse(
           sc.decode(msg.data)
         ) as Events.OtpCreatedEvent['detail'];
+
+        // message
+        const sender = config.get('smtp.sender') as string;
         NewMessageCtl.execute({
-          from: 'info@powerkernel.com',
+          from: sender,
           to: eventDetail.data.identifier,
           subject: `OTP code - ${eventDetail.data.code}`,
           html: eventDetail.data.code,

@@ -6,6 +6,17 @@
 
 import { ChainHandler } from '@powerkernel/power-common';
 import { Message } from '../entities';
+import nodemailer from 'nodemailer';
+
+export interface SmtpConfig {
+  host: string;
+  port: number;
+  secure: boolean;
+  auth: {
+    user: string;
+    pass: string;
+  };
+}
 
 abstract class SmtpHandler implements ChainHandler<Message> {
   private nextHandler?: ChainHandler<Message>;
@@ -20,6 +31,35 @@ abstract class SmtpHandler implements ChainHandler<Message> {
       return this.nextHandler.handle(message);
     }
     return false;
+  }
+
+  // create reusable transporter object using the default SMTP transport
+  protected createTranspoter(smtp: SmtpConfig): nodemailer.Transporter {
+    const transporter = nodemailer.createTransport({
+      host: smtp.host,
+      port: smtp.port,
+      secure: smtp.secure,
+      auth: {
+        user: smtp.auth.user,
+        pass: smtp.auth.pass,
+      },
+    });
+    return transporter;
+  }
+
+  // send mail with provided transport object and message
+  protected async sendMail(
+    transporter: nodemailer.Transporter,
+    message: Message
+  ): Promise<boolean> {
+    const info = await transporter.sendMail({
+      from: message.from,
+      to: message.to,
+      subject: message.subject,
+      text: message.text,
+      html: message.html,
+    });
+    return typeof info.messageId === 'string';
   }
 }
 

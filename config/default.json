@@ -7,6 +7,7 @@
     "dbName": "otp-db"
   },
   "smtp": {
+    "sender": "info@your.domain.com",
     "primary": {
       "host": "primary.smtp.com",
       "port": 465,
