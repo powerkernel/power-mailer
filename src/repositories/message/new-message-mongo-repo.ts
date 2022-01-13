@@ -17,7 +17,7 @@ class NewMessageMongoRepo implements NewMessageRepository {
   async saveMessage(doc: MessageDto): Promise<MessageDto> {
     const db = MongoDbClient.db;
     const data = {
-      _id: doc.id,
+      _id: MongoDbClient.createUuid(doc.id),
       from: doc.from,
       to: doc.to,
       subject: doc.subject,

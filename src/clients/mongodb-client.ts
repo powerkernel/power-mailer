@@ -4,7 +4,7 @@
  * @copyright Copyright (c) 2022 Power Kernel
  */
 
-import { Db, MongoClient } from 'mongodb';
+import { Db, MongoClient, Binary } from 'mongodb';
 import config from 'config';
 
 interface MongoDbConfig {
@@ -21,6 +21,24 @@ class MongoDbClient {
       throw new Error('Cannot access DB before connecting');
     }
     return this.wrappedDb;
+  }
+
+  createUuid(id: string): Binary {
+    return new Binary(
+      Buffer.from(id.replace(/-/g, ''), 'hex'),
+      Binary.SUBTYPE_UUID
+    );
+  }
+
+  stringifyUuid(uuid: Binary): string {
+    const buffer = uuid.buffer;
+    return [
+      buffer.toString('hex', 0, 4),
+      buffer.toString('hex', 4, 6),
+      buffer.toString('hex', 6, 8),
+      buffer.toString('hex', 8, 10),
+      buffer.toString('hex', 10, 16),
+    ].join('-');
   }
 
   async connect(): Promise<void> {
