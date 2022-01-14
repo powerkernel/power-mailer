@@ -19,6 +19,10 @@ const IDENTIFIERS = {
 
   /* Observers */
   EmailCreatedObserver: Symbol.for('EmailCreatedObserver'),
+
+  /* handlers */
+  PrimarySmtpHander: Symbol.for('PrimarySmtpHander'),
+  SecondarySmtpHander: Symbol.for('SecondarySmtpHander'),
 };
 
 export default IDENTIFIERS;

@@ -10,6 +10,7 @@
     "lint": "eslint ./src --ext .ts --fix",
     "release": "npx standard-version && git push --follow-tags origin main",
     "test": "jest --coverage",
+    "testw": "jest --watch",
     "prepare": "husky install"
   },
   "keywords": [

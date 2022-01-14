@@ -4,30 +4,20 @@
  * @copyright Copyright (c) 2022 Power Kernel
  */
 
-import { Observer } from '@powerkernel/power-common';
-import { injectable } from 'inversify';
+/* local imports */
 import container from '../../../config/container';
 import IDENTIFIERS from '../../../config/identifiers';
 import { NewMessageDto } from '../dtos';
-import { Message } from '../entities';
-import EmailCreatedObserver from '../observers/email-created-observer';
-import { NewMessageUseCase } from './../use-cases';
+import EmailCreatedObserver from '../observers/__mocks__/email-created-observer';
 
-@injectable()
-class MockEmailCreatedObserver implements Observer<Message> {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async update(subject: Message): Promise<boolean> {
-    return new Promise<boolean>((resolve) => {
-      resolve(true);
-    });
-  }
-}
+/* type imports */
+import type { NewMessageUseCase } from './../use-cases';
 
 beforeAll(() => {
   container.unbind(IDENTIFIERS.EmailCreatedObserver);
   container
     .bind<EmailCreatedObserver>(IDENTIFIERS.EmailCreatedObserver)
-    .to(MockEmailCreatedObserver);
+    .to(EmailCreatedObserver);
 });
 
 it('should handle normally', async () => {

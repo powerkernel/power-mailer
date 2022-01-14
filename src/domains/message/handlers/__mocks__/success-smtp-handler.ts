@@ -4,10 +4,11 @@
  * @copyright Copyright (c) 2022 Power Kernel
  */
 
-// import { Message } from '../../entities';
-import SmtpHandler from './smtp-handler';
+import { injectable } from 'inversify';
+import SmtpHandler from '../smtp-handler';
 
-class PrimarySmtpHander extends SmtpHandler {
+@injectable()
+class SuccessSmtpHander extends SmtpHandler {
   public async handle(): Promise<boolean> {
     return new Promise<boolean>((resolve) => {
       resolve(true);
@@ -15,4 +16,4 @@ class PrimarySmtpHander extends SmtpHandler {
   }
 }
 
-export default PrimarySmtpHander;
+export default SuccessSmtpHander;

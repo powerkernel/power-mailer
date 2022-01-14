@@ -5,20 +5,32 @@
  */
 
 import { Observer } from '@powerkernel/power-common';
-import { injectable } from 'inversify';
+import { inject, injectable } from 'inversify';
 
 /* local imports */
+import IDENTIFIERS from '../../../config/identifiers';
 import { Message } from '../entities';
-import PrimarySmtpHander from '../handlers/primary-smtp-handler';
-import SecondarySmtpHander from '../handlers/secondary-smtp-handler';
+import type PrimarySmtpHander from '../handlers/primary-smtp-handler';
+import type SecondarySmtpHander from '../handlers/secondary-smtp-handler';
 
 @injectable()
 class EmailCreatedObserver implements Observer<Message> {
+  private primaryHandler: PrimarySmtpHander;
+  private secondaryHandler: SecondarySmtpHander;
+
+  constructor(
+    @inject(IDENTIFIERS.PrimarySmtpHander)
+      primaryHandler: PrimarySmtpHander,
+    @inject(IDENTIFIERS.SecondarySmtpHander)
+      secondaryHandler: SecondarySmtpHander
+  ) {
+    this.primaryHandler = primaryHandler;
+    this.secondaryHandler = secondaryHandler;
+  }
+
   async update(subject: Message): Promise<boolean> {
-    const primaryHandler = new PrimarySmtpHander();
-    const secondaryHandler = new SecondarySmtpHander();
-    primaryHandler.setNext(secondaryHandler);
-    return await primaryHandler.handle(subject);
+    this.primaryHandler.setNext(this.secondaryHandler);
+    return await this.primaryHandler.handle(subject);
   }
 }
 

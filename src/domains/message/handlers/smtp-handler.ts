@@ -7,6 +7,7 @@
 import { ChainHandler } from '@powerkernel/power-common';
 import { Message } from '../entities';
 import nodemailer from 'nodemailer';
+import { injectable } from 'inversify';
 
 export interface SmtpConfig {
   host: string;
@@ -18,6 +19,7 @@ export interface SmtpConfig {
   };
 }
 
+@injectable()
 abstract class SmtpHandler implements ChainHandler<Message> {
   private nextHandler?: ChainHandler<Message>;
 
@@ -52,14 +54,20 @@ abstract class SmtpHandler implements ChainHandler<Message> {
     transporter: nodemailer.Transporter,
     message: Message
   ): Promise<boolean> {
-    const info = await transporter.sendMail({
-      from: message.from,
-      to: message.to,
-      subject: message.subject,
-      text: message.text,
-      html: message.html,
-    });
-    return typeof info.messageId === 'string';
+    try {
+      const info = await transporter.sendMail({
+        from: message.from,
+        to: message.to,
+        subject: message.subject,
+        text: message.text,
+        html: message.html,
+      });
+      return typeof info.messageId === 'string';
+    }
+    catch (err) {
+      return false;
+    }
+    
   }
 }
 

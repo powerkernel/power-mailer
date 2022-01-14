@@ -5,18 +5,17 @@
  */
 
 import config from 'config';
+import { injectable } from 'inversify';
 import { Message } from '../entities';
 import SmtpHandler, { SmtpConfig } from './smtp-handler';
-
+@injectable()
 class SecondarySmtpHander extends SmtpHandler {
   public async handle(message: Message): Promise<boolean> {
     const smtpSecondaryConfig = config.get('smtp.secondary') as SmtpConfig;
-    try {
-      await this.sendMail(this.createTranspoter(smtpSecondaryConfig), message);
-      console.log('SecondarySmtpHander handled the sending process.');
+    if(await this.sendMail(this.createTranspoter(smtpSecondaryConfig), message)) {
       return true;
-    } catch (err) {
-      console.error(err);
+    }
+    else {
       return await super.handle(message);
     }
   }

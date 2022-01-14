@@ -6,6 +6,7 @@
 
 import { inject, injectable } from 'inversify';
 import IDENTIFIERS from '../../../config/identifiers';
+import { MessageDto, NewMessageDto } from '../dtos';
 import { NewMessageUseCase } from '../use-cases';
 
 @injectable()
@@ -18,21 +19,8 @@ class NewMessageController {
     this.useCase = useCase;
   }
 
-  public async execute(data: {
-    from: string;
-    to: string;
-    subject: string;
-    html: string;
-    text: string;
-  }) {
-    const dto = {
-      from: data.from,
-      to: data.to,
-      subject: data.subject,
-      html: data.html,
-      text: data.text,
-    };
-    const doc = await this.useCase.handle(dto);
+  public async execute(data: NewMessageDto): Promise<MessageDto> {
+    const doc = await this.useCase.handle(data);
 
     return {
       id: doc.id,
