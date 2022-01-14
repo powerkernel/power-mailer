@@ -8,7 +8,7 @@
 import { injectable } from 'inversify';
 
 /* local imports */
-import { MongoDbClient } from '../../clients';
+import { MongoDbClient } from '@powerkernel/power-mongodb-client';
 import { MessageDto } from '../../domains/message/dtos';
 import { NewMessageRepository } from '../../domains/message/repositories';
 

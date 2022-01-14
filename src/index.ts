@@ -5,15 +5,21 @@
  */
 
 import 'reflect-metadata';
+import config from 'config';
+import {
+  MongoDbClient,
+  MongoDbConfig,
+} from '@powerkernel/power-mongodb-client';
 
 /* local imports */
 import { startApolloServer } from './frameworks/apollo';
-import { MongoDbClient, NatsClient } from './clients';
+import { NatsClient } from './clients';
 import listen from './frameworks/listerners';
 
 (async () => {
+  const mongodbConfig = config.get('mongoDb') as MongoDbConfig;
   try {
-    await MongoDbClient.connect();
+    await MongoDbClient.connect(mongodbConfig);
     await NatsClient.connect();
     await startApolloServer();
 

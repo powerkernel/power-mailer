@@ -5,7 +5,6 @@
  */
 
 import NatsClient from './nats-client';
-import MongoDbClient from './mongodb-client';
 import NatsPublisherClient from './nats-publisher-client';
 
-export { MongoDbClient, NatsClient, NatsPublisherClient };
+export { NatsClient, NatsPublisherClient };
