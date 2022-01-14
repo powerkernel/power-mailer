@@ -9,13 +9,15 @@ import { Container } from 'inversify';
 /* local import */
 import { bindRepositories } from './ioc-repository';
 import { bindUseCases } from './ioc-usecase';
-import { bindControllers } from './ioc-controllers';
+import { bindControllers } from './ioc-controller';
+import { bindObservers } from './ioc-observer';
 
 /* main */
 const container = new Container();
 bindRepositories(container);
 bindUseCases(container);
 bindControllers(container);
+bindObservers(container);
 
 /* exports */
 export default container;

@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /**
  * @author Harry Tang <harry@powerkernel.com>
  * @link https://powerkernel.com
@@ -21,11 +22,16 @@ import EmailCreatedObserver from '../observers/email-created-observer';
 @injectable()
 class NewMessageUseCase {
   repository: NewMessageRepository;
+  emailCreatedObserver: EmailCreatedObserver;
 
   constructor(
-    @inject(IDENTIFIERS.NewMessageRepository) repository: NewMessageRepository
+    @inject(IDENTIFIERS.NewMessageRepository)
+    repository: NewMessageRepository,
+    @inject(IDENTIFIERS.EmailCreatedObserver)
+    emailCreatedObserver: EmailCreatedObserver
   ) {
     this.repository = repository;
+    this.emailCreatedObserver = emailCreatedObserver;
   }
 
   public async handle(dto: NewMessageDto): Promise<MessageDto> {
@@ -47,7 +53,7 @@ class NewMessageUseCase {
     await this.repository.saveMessage(messageEntity.jsonify());
 
     // observer
-    messageEntity.attach(new EmailCreatedObserver());
+    messageEntity.attach(this.emailCreatedObserver);
     messageEntity.notify();
 
     return doc;

@@ -16,6 +16,9 @@ const IDENTIFIERS = {
   /* Controller */
   ViewSystemController: Symbol.for('ViewSystemController'),
   NewMessageController: Symbol.for('NewMessageController'),
+
+  /* Observers */
+  EmailCreatedObserver: Symbol.for('EmailCreatedObserver'),
 };
 
 export default IDENTIFIERS;

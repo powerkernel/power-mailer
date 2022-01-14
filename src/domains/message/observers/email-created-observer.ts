@@ -5,10 +5,14 @@
  */
 
 import { Observer } from '@powerkernel/power-common';
+import { injectable } from 'inversify';
+
+/* local imports */
 import { Message } from '../entities';
 import PrimarySmtpHander from '../handlers/primary-smtp-handler';
 import SecondarySmtpHander from '../handlers/secondary-smtp-handler';
 
+@injectable()
 class EmailCreatedObserver implements Observer<Message> {
   async update(subject: Message): Promise<boolean> {
     const primaryHandler = new PrimarySmtpHander();

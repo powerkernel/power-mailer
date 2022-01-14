@@ -1,0 +1,61 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/**
+ * @author Harry Tang <harry@powerkernel.com>
+ * @link https://powerkernel.com
+ * @copyright Copyright (c) 2022 Power Kernel
+ */
+
+import { ChainHandler } from '@powerkernel/power-common';
+import { Message } from '../../entities';
+import nodemailer from 'nodemailer';
+
+export interface SmtpConfig {
+  host: string;
+  port: number;
+  secure: boolean;
+  auth: {
+    user: string;
+    pass: string;
+  };
+}
+
+abstract class SmtpHandler implements ChainHandler<Message> {
+  private nextHandler?: ChainHandler<Message>;
+
+  public setNext(handler: ChainHandler<Message>): ChainHandler<Message> {
+    this.nextHandler = handler;
+    return handler;
+  }
+
+  public async handle(message: Message): Promise<boolean> {
+    if (this.nextHandler) {
+      return this.nextHandler.handle(message);
+    }
+    return false;
+  }
+
+  // create reusable transporter object using the default SMTP transport
+  protected createTranspoter(smtp: SmtpConfig): nodemailer.Transporter {
+    const transporter = nodemailer.createTransport({
+      host: smtp.host,
+      port: smtp.port,
+      secure: smtp.secure,
+      auth: {
+        user: smtp.auth.user,
+        pass: smtp.auth.pass,
+      },
+    });
+    return transporter;
+  }
+
+  protected async sendMail(
+    transporter: nodemailer.Transporter,
+    message: Message
+  ): Promise<boolean> {
+    return new Promise<boolean>((resolve) => {
+      resolve(true);
+    });
+  }
+}
+
+export default SmtpHandler;

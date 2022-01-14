@@ -4,9 +4,6 @@
  * @copyright Copyright (c) 2022 Power Kernel
  */
 
-interface Handler {
-  setNext(handler: Handler): Handler;
-  handle(request: string): string | null;
-}
+import EmailCreatedObserver from './email-created-observer';
 
-export default Handler;
+export { EmailCreatedObserver };
