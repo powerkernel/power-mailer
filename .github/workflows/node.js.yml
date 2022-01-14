@@ -24,5 +24,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
-      - run: echo ${{secrets.TEST_JSON}} > config/test.json
+      - run: echo "$SUPER_SECRET" > config/test.json
       - run: npm test
+        env:
+          TEST_JSON: ${{ secrets.TEST_JSON }}
