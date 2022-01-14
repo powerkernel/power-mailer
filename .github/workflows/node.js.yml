@@ -27,5 +27,4 @@ jobs:
       - run: echo "$TEST_JSON" > config/test.json
         env:
           TEST_JSON: ${{ secrets.TEST_JSON }}
-      - run: cat config/test.json
       - run: npm test
