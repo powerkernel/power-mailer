@@ -51,7 +51,7 @@
   "dependencies": {
     "@powerkernel/power-common": "^0.1.36",
     "@powerkernel/power-mongodb-client": "^0.1.0",
-    "apollo-server-core": "^3.6.1",
+    "apollo-server-core": "^3.10.1",
     "apollo-server-express": "^3.6.1",
     "config": "^3.3.7",
     "express": "^4.17.2",
