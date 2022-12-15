@@ -54,7 +54,7 @@
     "apollo-server-core": "^3.6.1",
     "apollo-server-express": "^3.6.1",
     "config": "^3.3.7",
-    "express": "^4.17.2",
+    "express": "^4.17.3",
     "inversify": "^6.0.1",
     "nast": "^1.0.19",
     "nats": "^2.4.0",
